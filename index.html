@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <main role="main">
+    <div class="header-wrap">
+        <h1 class="header">Game of Thrones Search</h1>
+        <p class="sub-header">Get information and clips of your favorite GoT characters</p>
+    </div>
+    <form id="searchForm">
+        <!--<label for="searchCharacter">Search:</label>-->
+        <input type="text" id="searchCharacter" autocomplete="off" class="js-capitalize" placeholder="Search character">
+    </form>
+
+    <div class="info-results" aria-live="assertive"></div>
+
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+1. Character name is entered in form
+2. After form submit, get value of input
+3. Get JSON data
+4. Loop through JSON and find index number matching character name
+5. Return character data
