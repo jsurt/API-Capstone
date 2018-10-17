@@ -3,17 +3,16 @@ function getLocalJsonData(searchTerm, callBack) {
 }
 
 function gotData(data) {
-    const query = $('#searchCharacter').val();
     console.log(data);
     console.log(query);
     $('#searchCharacter').val('');
     for(let i = 0; i < data.length; i++) {
         if(query === data[i].Name) {
-            let id = data[i].Id;
-            console.log(id);
+            characterId = i;
+            console.log(characterId);
             $.ajax({
                 type: "GET",
-                url: `https://anapioficeandfire.com/api/characters/${i}`,
+                url: `characters.json`,
                 success: displayCharacterInfo
             });
         }
@@ -21,18 +20,32 @@ function gotData(data) {
 }
 
 function displayCharacterInfo(data) {
-    console.log(data);
+    console.log(data[characterId]);
     $('.info-results').html(
-        `<p class="character-name">${data.name}</p>
-        <p class="character-culture">${data.gender}</p>
-        <p class="character-culture">${data.culture}</p>`
-    );
+        `<p class="character-name">Name: ${data[characterId].Name}</p>
+        <p class="character-culture">Culture: ${data[characterId].Culture}</p>`
+    );   
+    $.ajax({
+        type: "GET",
+        url: "https://www.googleapis.com/youtube/v3/search",
+        data: {
+            part: "snippet",
+            key: "AIzaSyAH3n0AVo3RaBhwbs2lNFCQh6UJmluqj-w",
+            q: `${query}`
+        },
+        success: renderYoutubeResults
+    });
+}
+
+function renderYoutubeResults(data) {
+    console.log(data);
+    
 }
 
 function startSearch() {
     $('#searchForm').submit(function(event){
         event.preventDefault();
-        const query = $('#searchCharacter').val();
+        query = $('#searchCharacter').val();
         getLocalJsonData(query, gotData);
     })
 }
