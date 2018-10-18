@@ -8,18 +8,14 @@ function gotData(data) {
     $('#searchCharacter').val('');
     for(let i = 0; i < data.length; i++) {
         if(query === data[i].Name) {
-            characterId = i;
+            let characterId = i;
             console.log(characterId);
-            $.ajax({
-                type: "GET",
-                url: `characters.json`,
-                success: displayCharacterInfo
-            });
+            displayCharacterInfo(data, characterId);
         }
     }
 }
 
-function displayCharacterInfo(data) {
+function displayCharacterInfo(data, characterId) {
     console.log(data[characterId]);
     $('.info-results').html(
         `<p class="character-name">Name: ${data[characterId].Name}</p>
@@ -31,7 +27,8 @@ function displayCharacterInfo(data) {
         data: {
             part: "snippet",
             key: "AIzaSyAH3n0AVo3RaBhwbs2lNFCQh6UJmluqj-w",
-            q: `${query}`
+            q: `${query}`,
+            per_page: 9
         },
         success: renderYoutubeResults
     });
@@ -39,7 +36,22 @@ function displayCharacterInfo(data) {
 
 function renderYoutubeResults(data) {
     console.log(data);
-    
+    var resultsHTML = '<div class="col-12">';
+    data.items.forEach(function (item) {
+    resultsHTML = (resultsHTML + '<div><div class="col-4 vid-column">' +
+      '<div class="card-image">' +
+        '<iframe src="https://www.youtube.com/embed/' + item.id.videoId + '" frameborder="0" allowfullscreen></iframe>' +
+      '</div>' +
+      '<div class="vid-title">' +
+        '<p class="truncate">' + item.snippet.title + '</p>' +
+      '</div>' +
+      '<div class="card-action">' +
+        '<a href="https://www.youtube.com/channel/' + item.snippet.channelId + '">View more from '+ item.snippet.channelTitle + '</a>' +
+      '</div>' + 
+      '</div></div>')
+  });  
+    resultsHTML = resultsHTML + '</div>';
+    $('.youtube-results').html(resultsHTML);
 }
 
 function startSearch() {

@@ -26,10 +26,18 @@ form {
     text-align: center;
 }
 
+.youtube-results {
+    width: 1260px;
+}
 
 
+.vid-column {
+    float: left;
+}
 
-
+.vid-title {
+    width: 300px;
+}
 
 .js-capitalize {
     text-transform: capitalize;
